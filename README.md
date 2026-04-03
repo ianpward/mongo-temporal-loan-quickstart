@@ -1,6 +1,8 @@
 # AI-Powered Loan Application Processing
 ### MongoDB Atlas × Temporal — Python Quickstart
 
+![Architecture Diagram](architecture.svg)
+
 This quickstart demonstrates how to build a production-grade loan processing
 pipeline using **Temporal** for durable workflow orchestration and **MongoDB Atlas**
 for intelligent data storage and retrieval.
