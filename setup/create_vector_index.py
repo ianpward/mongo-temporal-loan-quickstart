@@ -24,7 +24,7 @@ from pymongo.operations import SearchIndexModel
 load_dotenv()
 
 INDEX_NAME = "loan_embedding_index"
-EMBEDDING_DIMENSIONS = 1024  # voyage-finance-2 output dimensions
+EMBEDDING_DIMENSIONS = 1024  # voyage-4-large output dimensions
 SIMILARITY = "cosine"
 
 

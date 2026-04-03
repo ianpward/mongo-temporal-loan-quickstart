@@ -106,7 +106,7 @@ python seed/seed_historical_loans.py
 ```
 
 Inserts 15 historical loan decisions into Atlas, each embedded with
-`voyage-finance-2`. These are what Vector Search retrieves as context
+`voyage-4-large`. These are what Vector Search retrieves as context
 for new applications.
 
 ---
@@ -150,7 +150,7 @@ Once the workflow reaches 'pending_review', approve or deny with:
 Watch the worker logs as activities execute:
 
 ```
-[Activity] extract_and_embed_documents: Embedded 2 documents via voyage-finance-2
+[Activity] extract_and_embed_documents: Embedded 2 documents via voyage-4-large
 [Activity] retrieve_similar_applications: Found 5 similar loans via Atlas Vector Search
 [Activity] retrieve_similar_applications: Reranked results via rerank-2
 [Activity] run_credit_analysis: Risk score 0.28 — recommendation: APPROVE

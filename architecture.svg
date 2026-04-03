@@ -70,7 +70,7 @@
 <text x="175" y="298" text-anchor="middle" font-family="Segoe UI,Arial" font-size="11" font-weight="700" fill="#e0f2fe">_documents</text>
 <text x="175" y="316" text-anchor="middle" font-family="Segoe UI,Arial" font-size="10" fill="#94a3b8">Build loan narrative</text>
 <text x="175" y="330" text-anchor="middle" font-family="Segoe UI,Arial" font-size="10" fill="#94a3b8">Embed → store in Atlas</text>
-<text x="175" y="347" text-anchor="middle" font-family="Segoe UI,Arial" font-size="9" fill="#a78bfa">voyage-finance-2 · 1024d</text>
+<text x="175" y="347" text-anchor="middle" font-family="Segoe UI,Arial" font-size="9" fill="#a78bfa">voyage-4-large · 1024d</text>
 
 <!-- Arrow S1→S2 -->
 <path d="M275 307 L315 307" stroke="#3b82f6" stroke-width="2" fill="none" marker-end="url(#mb)"/>
@@ -158,7 +158,7 @@
 
 <!-- S1 (cx=175, bot=366) → Voyage AI (cx=190, top=625)  purple solid -->
 <path d="M175,366 L175,570 L190,570 L190,625" stroke="#a855f7" stroke-width="2" fill="none" marker-end="url(#mp)"/>
-<text x="160" y="500" font-family="Segoe UI,Arial" font-size="9" fill="#a855f7" text-anchor="middle" transform="rotate(-90,160,500)">embed(voyage-finance-2)</text>
+<text x="160" y="500" font-family="Segoe UI,Arial" font-size="9" fill="#a855f7" text-anchor="middle" transform="rotate(-90,160,500)">embed(voyage-4-large)</text>
 
 <!-- S2 (cx=415, bot=366) → Voyage AI (cx=215, top=625)  purple dashed (rerank) -->
 <path d="M390,366 L390,558 L215,558 L215,625" stroke="#a855f7" stroke-width="1.5" fill="none" marker-end="url(#mp)" stroke-dasharray="5,3"/>
@@ -191,7 +191,7 @@
 <rect x="50" y="625" width="290" height="30" rx="9" fill="#4c1d95"/>
 <rect x="50" y="643" width="290" height="12" fill="#4c1d95"/>
 <text x="195" y="642" text-anchor="middle" font-family="Segoe UI,Arial" font-size="11" font-weight="700" fill="#ede9fe">🚀  Voyage AI</text>
-<text x="195" y="664" text-anchor="middle" font-family="Segoe UI,Arial" font-size="10" fill="#c4b5fd">Embeddings: voyage-finance-2</text>
+<text x="195" y="664" text-anchor="middle" font-family="Segoe UI,Arial" font-size="10" fill="#c4b5fd">Embeddings: voyage-4-large</text>
 <text x="195" y="679" text-anchor="middle" font-family="Segoe UI,Arial" font-size="10" fill="#a78bfa">1024-dimensional vectors · cosine similarity</text>
 <text x="195" y="694" text-anchor="middle" font-family="Segoe UI,Arial" font-size="10" fill="#c4b5fd">Reranking: rerank-2 · top_k=5</text>
 <text x="195" y="711" text-anchor="middle" font-family="Segoe UI,Arial" font-size="9" fill="#6d28d9">ai.mongodb.com/v1/embeddings</text>
@@ -209,7 +209,7 @@
 <text x="635" y="694" text-anchor="middle" font-family="Segoe UI,Arial" font-size="10" fill="#94a3b8">Fields stored: embedding · similar_applications · ai_analysis · decision · status</text>
 <text x="635" y="711" text-anchor="middle" font-family="Segoe UI,Arial" font-size="9" fill="#059669">cluster0.i7rxrm.mongodb.net  ·  pymongo 4.16  ·  motor 3.7</text>
 <text x="635" y="724" text-anchor="middle" font-family="Segoe UI,Arial" font-size="9" fill="#059669">AsyncIOMotorClient  ·  $vectorSearch aggregation pipeline  ·  upsert=True</text>
-<text x="635" y="739" text-anchor="middle" font-family="Segoe UI,Arial" font-size="8" fill="#064e3b">Seed data: 15 historical loans  ·  11 approved  ·  4 denied  ·  embedded via voyage-finance-2</text>
+<text x="635" y="739" text-anchor="middle" font-family="Segoe UI,Arial" font-size="8" fill="#064e3b">Seed data: 15 historical loans  ·  11 approved  ·  4 denied  ·  embedded via voyage-4-large</text>
 <text x="635" y="752" text-anchor="middle" font-family="Segoe UI,Arial" font-size="8" fill="#064e3b">Each Activity reads/writes Atlas — state visible in Atlas UI at every stage</text>
 
 <!-- CLAUDE / GROVE -->

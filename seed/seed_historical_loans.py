@@ -163,7 +163,7 @@ async def main() -> None:
     client = AsyncIOMotorClient(uri)
     collection = client[db_name]["loan_applications"]
 
-    print(f"Generating embeddings for {len(HISTORICAL_LOANS)} historical loans via voyage-finance-2...")
+    print(f"Generating embeddings for {len(HISTORICAL_LOANS)} historical loans via voyage-4-large...")
     voyage = voyageai.AsyncClient(api_key=os.environ["VOYAGE_API_KEY"])
 
     narratives = [build_narrative(loan) for loan in HISTORICAL_LOANS]
@@ -171,7 +171,7 @@ async def main() -> None:
     # Embed all narratives in a single batch call
     result = await voyage.embed(
         texts=narratives,
-        model="voyage-finance-2",
+        model="voyage-4-large",
         input_type="document",
     )
 

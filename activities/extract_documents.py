@@ -24,7 +24,7 @@ from .db import get_collection
 async def extract_and_embed_documents(application: dict) -> dict:
     """
     Build a loan narrative from application fields, embed it with
-    voyage-finance-2, and persist the embedding to MongoDB.
+    voyage-4-large, and persist the embedding to MongoDB.
 
     Args:
         application: Full application dict (see client.py for shape)
@@ -60,24 +60,24 @@ async def extract_and_embed_documents(application: dict) -> dict:
         f"Supporting documents: {doc_texts}"
     )
 
-    activity.logger.info(f"[{app_id}] Embedding narrative via voyage-finance-2")
+    activity.logger.info(f"[{app_id}] Embedding narrative via voyage-4-large")
 
     # ------------------------------------------------------------------
     # Step 2: Generate embedding via Voyage AI
-    # voyage-finance-2 is optimized for financial text and produces
+    # voyage-4-large is optimized for financial text and produces
     # 1024-dimensional vectors suitable for Atlas Vector Search.
     # ------------------------------------------------------------------
     voyage = voyageai.AsyncClient(api_key=os.environ["VOYAGE_API_KEY"])
     result = await voyage.embed(
         texts=[narrative],
-        model="voyage-finance-2",
+        model="voyage-4-large",
         input_type="document",
     )
     embedding = result.embeddings[0]
 
     activity.logger.info(
         f"[{app_id}] Embedded {len(application.get('documents', []))} documents "
-        f"via voyage-finance-2 ({len(embedding)} dimensions)"
+        f"via voyage-4-large ({len(embedding)} dimensions)"
     )
 
     # ------------------------------------------------------------------
