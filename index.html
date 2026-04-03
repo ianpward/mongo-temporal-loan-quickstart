@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>body { margin: 0; background: #0f172a; }</style>
+</head>
+<body>
+<svg width="1600" height="870" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <marker id="mb" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+    <path d="M0 0 L10 5 L0 10z" fill="#3b82f6"/></marker>
+  <marker id="mg" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+    <path d="M0 0 L10 5 L0 10z" fill="#22c55e"/></marker>
+  <marker id="mp" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+    <path d="M0 0 L10 5 L0 10z" fill="#a855f7"/></marker>
+  <marker id="ma" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+    <path d="M0 0 L10 5 L0 10z" fill="#f59e0b"/></marker>
+  <marker id="ms" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+    <path d="M0 0 L10 5 L0 10z" fill="#94a3b8"/></marker>
+  <linearGradient id="grad-temporal" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#1e3a8a"/><stop offset="100%" stop-color="#1e40af" stop-opacity="0.6"/>
+  </linearGradient>
+  <filter id="glow-blue"><feGaussianBlur stdDeviation="2" result="b"/>
+    <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+</defs>
+
+<!-- ░░░ BACKGROUND ░░░ -->
+<rect width="1600" height="870" fill="#0f172a"/>
+<!-- subtle dot grid -->
+<pattern id="dots" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
+  <circle cx="1" cy="1" r="1" fill="#1e293b"/>
+</pattern>
+<rect width="1600" height="870" fill="url(#dots)"/>
+
+<!-- ░░░ TITLE ░░░ -->
+<text x="800" y="43" text-anchor="middle" font-family="Segoe UI,Arial" font-size="22" font-weight="700" fill="#f1f5f9">AI-Powered Loan Application Processing</text>
+<text x="800" y="64" text-anchor="middle" font-family="Segoe UI,Arial" font-size="12" fill="#475569">MongoDB Atlas × Temporal — Architecture &amp; Data Flow</text>
+
+<!-- ░░░ CLIENT.PY ENTRY ░░░ -->
+<rect x="50" y="90" width="195" height="68" rx="8" fill="#172554" stroke="#3b82f6" stroke-width="2" filter="url(#glow-blue)"/>
+<rect x="50" y="90" width="195" height="26" rx="8" fill="#1d4ed8"/>
+<rect x="50" y="106" width="195" height="10" fill="#1d4ed8"/>
+<text x="147" y="106" text-anchor="middle" font-family="Segoe UI,Arial" font-size="9" font-weight="600" fill="#93c5fd" letter-spacing="1">ENTRY POINT</text>
+<text x="147" y="125" text-anchor="middle" font-family="Segoe UI,Arial" font-size="13" font-weight="700" fill="#f0f9ff">client.py</text>
+<text x="147" y="141" text-anchor="middle" font-family="Segoe UI,Arial" font-size="10" fill="#94a3b8">python client.py</text>
+<text x="147" y="153" text-anchor="middle" font-family="Segoe UI,Arial" font-size="10" fill="#60a5fa">loan-app-{uuid}</text>
+
+<!-- Arrow: client.py → Temporal box -->
+<path d="M245 124 L365 188" stroke="#3b82f6" stroke-width="2" fill="none" marker-end="url(#mb)"/>
+<text x="290" y="147" font-family="Segoe UI,Arial" font-size="9" fill="#60a5fa" transform="rotate(-22,290,147)">start_workflow(application)</text>
+
+<!-- ░░░ TEMPORAL SERVER BADGE ░░░ -->
+<rect x="1285" y="90" width="275" height="68" rx="8" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>
+<text x="1422" y="113" text-anchor="middle" font-family="Segoe UI,Arial" font-size="11" font-weight="700" fill="#64748b">⚡  Temporal Server</text>
+<text x="1422" y="130" text-anchor="middle" font-family="Segoe UI,Arial" font-size="10" fill="#475569">:7233 gRPC  ·  :8233 Web UI</text>
+<text x="1422" y="146" text-anchor="middle" font-family="Segoe UI,Arial" font-size="9" fill="#334155">temporal server start-dev</text>
+<text x="1422" y="159" text-anchor="middle" font-family="Segoe UI,Arial" font-size="9" fill="#1e3a5f">localhost (Temporal CLI 1.6.2)</text>
+
+<!-- ░░░ BIG TEMPORAL WORKFLOW BOX ░░░ -->
+<rect x="50" y="180" width="1510" height="385" rx="12" fill="#060c18" stroke="#1d4ed8" stroke-width="2"/>
+<!-- header bar -->
+<rect x="50" y="180" width="1510" height="34" rx="12" fill="url(#grad-temporal)"/>
+<rect x="50" y="198" width="1510" height="16" fill="#1e3a8a"/>
+<text x="76" y="201" font-family="Segoe UI,Arial" font-size="10" font-weight="700" fill="#93c5fd" letter-spacing="0.5">⚡  TEMPORAL WORKFLOW ORCHESTRATOR</text>
+<text x="76" y="213" font-family="Segoe UI,Arial" font-size="9" fill="#60a5fa">LoanApplicationWorkflow  ·  task-queue: loan-processing  ·  namespace: default  ·  Activities retried up to 3× with exponential backoff  ·  Checkpointed after each stage</text>
+
+<!-- ┌──────────── ACTIVITY BOXES ────────────┐ -->
+<!-- Layout: S1@x=75 S2@x=315 S3@x=555 S4@x=795 ⏸@x=1035 S5@x=1195 -->
+<!-- Each stage: w=200, gap=40 / signal: w=110 -->
+
+<!-- STAGE 1 -->
+<rect x="75" y="248" width="200" height="118" rx="7" fill="#0a1628" stroke="#2563eb" stroke-width="1.5"/>
+<rect x="75" y="248" width="200" height="25" rx="7" fill="#1e40af"/>
+<rect x="75" y="263" width="200" height="10" fill="#1e40af"/>
+<text x="175" y="262" text-anchor="middle" font-family="Segoe UI,Arial" font-size="9" font-weight="700" fill="#93c5fd" letter-spacing="1">STAGE 1</text>
+<text x="175" y="284" text-anchor="middle" font-family="Segoe UI,Arial" font-size="11" font-weight="700" fill="#e0f2fe">extract_and_embed</text>
+<text x="175" y="298" text-anchor="middle" font-family="Segoe UI,Arial" font-size="11" font-weight="700" fill="#e0f2fe">_documents</text>
+<text x="175" y="316" text-anchor="middle" font-family="Segoe UI,Arial" font-size="10" fill="#94a3b8">Build loan narrative</text>
+<text x="175" y="330" text-anchor="middle" font-family="Segoe UI,Arial" font-size="10" fill="#94a3b8">Embed → store in Atlas</text>
+<text x="175" y="347" text-anchor="middle" font-family="Segoe UI,Arial" font-size="9" fill="#a78bfa">voyage-finance-2 · 1024d</text>
+
+<!-- Arrow S1→S2 -->
+<path d="M275 307 L315 307" stroke="#3b82f6" stroke-width="2" fill="none" marker-end="url(#mb)"/>
+
+<!-- STAGE 2 -->
+<rect x="315" y="248" width="200" height="118" rx="7" fill="#0a1628" stroke="#2563eb" stroke-width="1.5"/>
+<rect x="315" y="248" width="200" height="25" rx="7" fill="#1e40af"/>
+<rect x="315" y="263" width="200" height="10" fill="#1e40af"/>
+<text x="415" y="262" text-anchor="middle" font-family="Segoe UI,Arial" font-size="9" font-weight="700" fill="#93c5fd" letter-spacing="1">STAGE 2</text>
+<text x="415" y="284" text-anchor="middle" font-family="Segoe UI,Arial" font-size="11" font-weight="700" fill="#e0f2fe">retrieve_similar</text>
+<text x="415" y="298" text-anchor="middle" font-family="Segoe UI,Arial" font-size="11" font-weight="700" fill="#e0f2fe">_applications</text>
+<text x="415" y="316" text-anchor="middle" font-family="Segoe UI,Arial" font-size="10" fill="#94a3b8">$vectorSearch → top 20</text>
+<text x="415" y="330" text-anchor="middle" font-family="Segoe UI,Arial" font-size="10" fill="#94a3b8">Voyage rerank → top 5</text>
+<text x="415" y="347" text-anchor="middle" font-family="Segoe UI,Arial" font-size="9" fill="#a78bfa">rerank-2</text>
+
+<!-- Arrow S2→S3 -->
+<path d="M515 307 L555 307" stroke="#3b82f6" stroke-width="2" fill="none" marker-end="url(#mb)"/>
+
+<!-- STAGE 3 -->
+<rect x="555" y="248" width="200" height="118" rx="7" fill="#0a1628" stroke="#2563eb" stroke-width="1.5"/>
+<rect x="555" y="248" width="200" height="25" rx="7" fill="#1e40af"/>
+<rect x="555" y="263" width="200" height="10" fill="#1e40af"/>
+<text x="655" y="262" text-anchor="middle" font-family="Segoe UI,Arial" font-size="9" font-weight="700" fill="#93c5fd" letter-spacing="1">STAGE 3</text>
+<text x="655" y="284" text-anchor="middle" font-family="Segoe UI,Arial" font-size="11" font-weight="700" fill="#e0f2fe">run_credit</text>
+<text x="655" y="298" text-anchor="middle" font-family="Segoe UI,Arial" font-size="11" font-weight="700" fill="#e0f2fe">_analysis</text>
+<text x="655" y="316" text-anchor="middle" font-family="Segoe UI,Arial" font-size="10" fill="#94a3b8">LLM underwriting analysis</text>
+<text x="655" y="330" text-anchor="middle" font-family="Segoe UI,Arial" font-size="10" fill="#94a3b8">risk score · recommendation</text>
+<text x="655" y="347" text-anchor="middle" font-family="Segoe UI,Arial" font-size="9" fill="#fbbf24">claude-sonnet-4-6</text>
+
+<!-- Arrow S3→S4 -->
+<path d="M755 307 L795 307" stroke="#3b82f6" stroke-width="2" fill="none" marker-end="url(#mb)"/>
+
+<!-- STAGE 4 -->
+<rect x="795" y="248" width="200" height="118" rx="7" fill="#0a1628" stroke="#2563eb" stroke-width="1.5"/>
+<rect x="795" y="248" width="200" height="25" rx="7" fill="#1e40af"/>
+<rect x="795" y="263" width="200" height="10" fill="#1e40af"/>
+<text x="895" y="262" text-anchor="middle" font-family="Segoe UI,Arial" font-size="9" font-weight="700" fill="#93c5fd" letter-spacing="1">STAGE 4</text>
+<text x="895" y="284" text-anchor="middle" font-family="Segoe UI,Arial" font-size="11" font-weight="700" fill="#e0f2fe">flag_for_human</text>
+<text x="895" y="298" text-anchor="middle" font-family="Segoe UI,Arial" font-size="11" font-weight="700" fill="#e0f2fe">_review</text>
+<text x="895" y="316" text-anchor="middle" font-family="Segoe UI,Arial" font-size="10" fill="#94a3b8">status → pending_review</text>
+<text x="895" y="330" text-anchor="middle" font-family="Segoe UI,Arial" font-size="10" fill="#94a3b8">Atlas status update</text>
+<text x="895" y="347" text-anchor="middle" font-family="Segoe UI,Arial" font-size="9" fill="#4ade80">MongoDB Atlas</text>
+
+<!-- Arrow S4→Signal -->
+<path d="M995 307 L1035 307" stroke="#94a3b8" stroke-width="1.5" fill="none" marker-end="url(#ms)"/>
+
+<!-- SIGNAL WAIT -->
+<rect x="1035" y="260" width="120" height="95" rx="7" fill="#1c1917" stroke="#a16207" stroke-width="1.5" stroke-dasharray="5,3"/>
+<text x="1095" y="286" text-anchor="middle" font-family="Georgia,serif" font-size="20" fill="#fbbf24">⏸</text>
+<text x="1095" y="304" text-anchor="middle" font-family="Segoe UI,Arial" font-size="9" font-weight="700" fill="#fbbf24">PAUSED</text>
+<text x="1095" y="317" text-anchor="middle" font-family="Segoe UI,Arial" font-size="9" fill="#a8a29e">wait_condition</text>
+<text x="1095" y="329" text-anchor="middle" font-family="Segoe UI,Arial" font-size="8" fill="#78716c">awaiting Signal...</text>
+<text x="1095" y="342" text-anchor="middle" font-family="Segoe UI,Arial" font-size="8" fill="#57534e">durable suspend</text>
+<text x="1095" y="352" text-anchor="middle" font-family="Segoe UI,Arial" font-size="8" fill="#44403c">no compute used</text>
+
+<!-- Arrow Signal→S5 -->
+<path d="M1155 307 L1190 307" stroke="#94a3b8" stroke-width="1.5" fill="none" marker-end="url(#ms)"/>
+
+<!-- STAGE 5 -->
+<rect x="1190" y="248" width="200" height="118" rx="7" fill="#0a1628" stroke="#2563eb" stroke-width="1.5"/>
+<rect x="1190" y="248" width="200" height="25" rx="7" fill="#1e40af"/>
+<rect x="1190" y="263" width="200" height="10" fill="#1e40af"/>
+<text x="1290" y="262" text-anchor="middle" font-family="Segoe UI,Arial" font-size="9" font-weight="700" fill="#93c5fd" letter-spacing="1">STAGE 5</text>
+<text x="1290" y="284" text-anchor="middle" font-family="Segoe UI,Arial" font-size="11" font-weight="700" fill="#e0f2fe">record_final</text>
+<text x="1290" y="298" text-anchor="middle" font-family="Segoe UI,Arial" font-size="11" font-weight="700" fill="#e0f2fe">_decision</text>
+<text x="1290" y="316" text-anchor="middle" font-family="Segoe UI,Arial" font-size="10" fill="#94a3b8">decision.outcome</text>
+<text x="1290" y="330" text-anchor="middle" font-family="Segoe UI,Arial" font-size="10" fill="#94a3b8">decided_by · decided_at</text>
+<text x="1290" y="347" text-anchor="middle" font-family="Segoe UI,Arial" font-size="9" fill="#4ade80">MongoDB Atlas</text>
+
+<!-- ── MONGO STATUS FLOW LABEL ── -->
+<rect x="270" y="393" width="920" height="22" rx="4" fill="#0d1928" stroke="#1e3a5f" stroke-width="1"/>
+<text x="730" y="408" text-anchor="middle" font-family="Segoe UI,Arial" font-size="9" fill="#334155">Atlas status progression:  submitted  →  embedding_complete  →  retrieval_complete  →  analysis_complete  →  pending_review  →  decided</text>
+
+<!-- ── RETRY INFO ── -->
+<text x="800" y="445" text-anchor="middle" font-family="Segoe UI,Arial" font-size="9" fill="#1e3a5f">↻  RetryPolicy: max 3 attempts · 2 s initial interval · 2× backoff · 30 s max · Activities independently retried without re-running prior stages</text>
+<text x="800" y="460" text-anchor="middle" font-family="Segoe UI,Arial" font-size="9" fill="#1e3a5f">🔒  Temporal checkpoints after each Activity — kill the worker mid-run, restart it, the workflow resumes from the last completed stage with zero data loss</text>
+
+<!-- ── LIVE RUN BADGE ── -->
+<rect x="490" y="472" width="620" height="22" rx="4" fill="#071019" stroke="#0c2340" stroke-width="1"/>
+<text x="800" y="487" text-anchor="middle" font-family="Segoe UI,Arial" font-size="9" fill="#1d4ed8">Last run:  loan-app-28e46dd1  ·  risk_score: 0.22  ·  recommendation: APPROVE  ·  Decision: APPROVED by officer_42  ·  ~7 seconds end-to-end</text>
+
+<!-- └──────────────────────────────────────────────────────────────────────────────── -->
+
+<!-- ░░░░░░░░░░░░░ CONNECTING ARROWS ░░░░░░░░░░░░░ -->
+
+<!-- S1 (cx=175, bot=366) → Voyage AI (cx=190, top=625)  purple solid -->
+<path d="M175,366 L175,570 L190,570 L190,625" stroke="#a855f7" stroke-width="2" fill="none" marker-end="url(#mp)"/>
+<text x="160" y="500" font-family="Segoe UI,Arial" font-size="9" fill="#a855f7" text-anchor="middle" transform="rotate(-90,160,500)">embed(voyage-finance-2)</text>
+
+<!-- S2 (cx=415, bot=366) → Voyage AI (cx=215, top=625)  purple dashed (rerank) -->
+<path d="M390,366 L390,558 L215,558 L215,625" stroke="#a855f7" stroke-width="1.5" fill="none" marker-end="url(#mp)" stroke-dasharray="5,3"/>
+<text x="303" y="554" font-family="Segoe UI,Arial" font-size="9" fill="#a855f7" text-anchor="middle">rerank(rerank-2, top_k=5)</text>
+
+<!-- S2 (cx=415, bot=366) → MongoDB (cx=505, top=625)  green solid ($vectorSearch) -->
+<path d="M440,366 L440,548 L505,548 L505,625" stroke="#22c55e" stroke-width="2" fill="none" marker-end="url(#mg)"/>
+<text x="482" y="544" font-family="Segoe UI,Arial" font-size="9" fill="#22c55e" text-anchor="middle">$vectorSearch</text>
+
+<!-- S3 (cx=655, bot=366) → Claude (cx=1060, top=625)  amber solid -->
+<path d="M655,366 L655,536 L1060,536 L1060,625" stroke="#f59e0b" stroke-width="2" fill="none" marker-end="url(#ma)"/>
+<text x="857" y="532" font-family="Segoe UI,Arial" font-size="9" fill="#f59e0b" text-anchor="middle">POST /grove-foundry-prod/anthropic/v1/messages</text>
+
+<!-- S4 (cx=895, bot=366) → MongoDB (cx=720, top=625)  green dashed (status update) -->
+<path d="M870,366 L870,525 L720,525 L720,625" stroke="#22c55e" stroke-width="1.5" fill="none" marker-end="url(#mg)" stroke-dasharray="5,3"/>
+<text x="793" y="521" font-family="Segoe UI,Arial" font-size="9" fill="#22c55e" text-anchor="middle">updateOne(status: pending_review)</text>
+
+<!-- S5 (cx=1290, bot=366) → MongoDB (cx=740, top=625)  green solid (final write) -->
+<path d="M1290,366 L1290,580 L740,580 L740,625" stroke="#22c55e" stroke-width="2" fill="none" marker-end="url(#mg)"/>
+<text x="1015" y="576" font-family="Segoe UI,Arial" font-size="9" fill="#22c55e" text-anchor="middle">updateOne(decision: {outcome, decided_by, decided_at})</text>
+
+<!-- signal_decision (cx=1472, top=625) → Signal wait box (bot-center=1095,355)  slate dashed -->
+<path d="M1472,625 L1472,576 L1095,576 L1095,355" stroke="#94a3b8" stroke-width="1.5" fill="none" marker-end="url(#ms)" stroke-dasharray="6,3"/>
+<text x="1284" y="572" font-family="Segoe UI,Arial" font-size="9" fill="#94a3b8" text-anchor="middle">submit_loan_decision(decision, officer_id)  →  Temporal Signal</text>
+
+<!-- ░░░░░░░░░░░░░ SERVICE BOXES ░░░░░░░░░░░░░ -->
+
+<!-- VOYAGE AI -->
+<rect x="50" y="625" width="290" height="140" rx="9" fill="#180b38" stroke="#7c3aed" stroke-width="2"/>
+<rect x="50" y="625" width="290" height="30" rx="9" fill="#4c1d95"/>
+<rect x="50" y="643" width="290" height="12" fill="#4c1d95"/>
+<text x="195" y="642" text-anchor="middle" font-family="Segoe UI,Arial" font-size="11" font-weight="700" fill="#ede9fe">🚀  Voyage AI</text>
+<text x="195" y="664" text-anchor="middle" font-family="Segoe UI,Arial" font-size="10" fill="#c4b5fd">Embeddings: voyage-finance-2</text>
+<text x="195" y="679" text-anchor="middle" font-family="Segoe UI,Arial" font-size="10" fill="#a78bfa">1024-dimensional vectors · cosine similarity</text>
+<text x="195" y="694" text-anchor="middle" font-family="Segoe UI,Arial" font-size="10" fill="#c4b5fd">Reranking: rerank-2 · top_k=5</text>
+<text x="195" y="711" text-anchor="middle" font-family="Segoe UI,Arial" font-size="9" fill="#6d28d9">ai.mongodb.com/v1/embeddings</text>
+<text x="195" y="724" text-anchor="middle" font-family="Segoe UI,Arial" font-size="9" fill="#6d28d9">ai.mongodb.com/v1/rerank</text>
+<text x="195" y="739" text-anchor="middle" font-family="Segoe UI,Arial" font-size="8" fill="#3b0764">MongoDB Atlas integration · voyageai 0.3.7</text>
+<text x="195" y="752" text-anchor="middle" font-family="Segoe UI,Arial" font-size="8" fill="#3b0764">AsyncClient · input_type="document"</text>
+
+<!-- MONGODB ATLAS -->
+<rect x="390" y="625" width="490" height="140" rx="9" fill="#001e2b" stroke="#00684a" stroke-width="2"/>
+<rect x="390" y="625" width="490" height="30" rx="9" fill="#00684a"/>
+<rect x="390" y="643" width="490" height="12" fill="#00684a"/>
+<text x="635" y="642" text-anchor="middle" font-family="Segoe UI,Arial" font-size="11" font-weight="700" fill="#d1fae5">🍃  MongoDB Atlas</text>
+<text x="635" y="664" text-anchor="middle" font-family="Segoe UI,Arial" font-size="10" fill="#6ee7b7">Collection: loan_processing.loan_applications</text>
+<text x="635" y="679" text-anchor="middle" font-family="Segoe UI,Arial" font-size="10" fill="#94a3b8">Vector Index: loan_embedding_index  ·  cosine  ·  1024 dims  ·  filter: decision.outcome, _id</text>
+<text x="635" y="694" text-anchor="middle" font-family="Segoe UI,Arial" font-size="10" fill="#94a3b8">Fields stored: embedding · similar_applications · ai_analysis · decision · status</text>
+<text x="635" y="711" text-anchor="middle" font-family="Segoe UI,Arial" font-size="9" fill="#059669">cluster0.i7rxrm.mongodb.net  ·  pymongo 4.16  ·  motor 3.7</text>
+<text x="635" y="724" text-anchor="middle" font-family="Segoe UI,Arial" font-size="9" fill="#059669">AsyncIOMotorClient  ·  $vectorSearch aggregation pipeline  ·  upsert=True</text>
+<text x="635" y="739" text-anchor="middle" font-family="Segoe UI,Arial" font-size="8" fill="#064e3b">Seed data: 15 historical loans  ·  11 approved  ·  4 denied  ·  embedded via voyage-finance-2</text>
+<text x="635" y="752" text-anchor="middle" font-family="Segoe UI,Arial" font-size="8" fill="#064e3b">Each Activity reads/writes Atlas — state visible in Atlas UI at every stage</text>
+
+<!-- CLAUDE / GROVE -->
+<rect x="930" y="625" width="370" height="140" rx="9" fill="#150800" stroke="#d97706" stroke-width="2"/>
+<rect x="930" y="625" width="370" height="30" rx="9" fill="#92400e"/>
+<rect x="930" y="643" width="370" height="12" fill="#92400e"/>
+<text x="1115" y="642" text-anchor="middle" font-family="Segoe UI,Arial" font-size="11" font-weight="700" fill="#fef3c7">🤖  Anthropic Claude</text>
+<text x="1115" y="664" text-anchor="middle" font-family="Segoe UI,Arial" font-size="10" fill="#fcd34d">Model: claude-sonnet-4-6</text>
+<text x="1115" y="679" text-anchor="middle" font-family="Segoe UI,Arial" font-size="10" fill="#94a3b8">Via: Grove API Gateway (Azure APIM)</text>
+<text x="1115" y="694" text-anchor="middle" font-family="Segoe UI,Arial" font-size="9" fill="#d97706">grove-gateway-prod.azure-api.net</text>
+<text x="1115" y="709" text-anchor="middle" font-family="Segoe UI,Arial" font-size="9" fill="#d97706">/grove-foundry-prod/anthropic/v1/messages</text>
+<text x="1115" y="724" text-anchor="middle" font-family="Segoe UI,Arial" font-size="9" fill="#92400e">Header: api-key  ·  max_tokens: 1024  ·  anthropic 0.88</text>
+<text x="1115" y="739" text-anchor="middle" font-family="Segoe UI,Arial" font-size="8" fill="#451a03">Returns JSON: {risk_score, recommendation, rationale}</text>
+<text x="1115" y="752" text-anchor="middle" font-family="Segoe UI,Arial" font-size="8" fill="#451a03">Direct API fallback available in code (MODE 2 commented out)</text>
+
+<!-- SIGNAL_DECISION.PY / LOAN OFFICER -->
+<rect x="1350" y="625" width="210" height="140" rx="9" fill="#1c1917" stroke="#78716c" stroke-width="1.5" stroke-dasharray="5,3"/>
+<rect x="1350" y="625" width="210" height="30" rx="9" fill="#292524"/>
+<rect x="1350" y="643" width="210" height="12" fill="#292524"/>
+<text x="1455" y="642" text-anchor="middle" font-family="Segoe UI,Arial" font-size="11" font-weight="700" fill="#d6d3d1">👤  Loan Officer</text>
+<text x="1455" y="664" text-anchor="middle" font-family="Segoe UI,Arial" font-size="10" fill="#a8a29e">signal_decision.py</text>
+<text x="1455" y="679" text-anchor="middle" font-family="Segoe UI,Arial" font-size="9" fill="#94a3b8">--decision approved</text>
+<text x="1455" y="694" text-anchor="middle" font-family="Segoe UI,Arial" font-size="9" fill="#94a3b8">--officer officer_42</text>
+<text x="1455" y="709" text-anchor="middle" font-family="Segoe UI,Arial" font-size="9" fill="#78716c">→ Temporal Signal</text>
+<text x="1455" y="724" text-anchor="middle" font-family="Segoe UI,Arial" font-size="9" fill="#78716c">submit_loan_decision()</text>
+<text x="1455" y="739" text-anchor="middle" font-family="Segoe UI,Arial" font-size="8" fill="#57534e">unblocks wait_condition</text>
+<text x="1455" y="752" text-anchor="middle" font-family="Segoe UI,Arial" font-size="8" fill="#44403c">workflow resumes instantly</text>
+
+<!-- ░░░░░░░░░░░░░ LEGEND ░░░░░░░░░░░░░ -->
+<rect x="50" y="785" width="1510" height="68" rx="6" fill="#060c18" stroke="#1e293b" stroke-width="1"/>
+<text x="68" y="803" font-family="Segoe UI,Arial" font-size="8" font-weight="700" fill="#334155" letter-spacing="1">DATA FLOW</text>
+<!-- row 1 -->
+<line x1="150" y1="800" x2="185" y2="800" stroke="#3b82f6" stroke-width="2" marker-end="url(#mb)"/>
+<text x="193" y="804" font-family="Segoe UI,Arial" font-size="9" fill="#64748b">Activity execution (sequential)</text>
+<line x1="365" y1="800" x2="400" y2="800" stroke="#a855f7" stroke-width="2" marker-end="url(#mp)"/>
+<text x="408" y="804" font-family="Segoe UI,Arial" font-size="9" fill="#64748b">Voyage AI call (embed / rerank)</text>
+<line x1="585" y1="800" x2="620" y2="800" stroke="#22c55e" stroke-width="2" marker-end="url(#mg)"/>
+<text x="628" y="804" font-family="Segoe UI,Arial" font-size="9" fill="#64748b">MongoDB Atlas read / write</text>
+<line x1="800" y1="800" x2="835" y2="800" stroke="#f59e0b" stroke-width="2" marker-end="url(#ma)"/>
+<text x="843" y="804" font-family="Segoe UI,Arial" font-size="9" fill="#64748b">Anthropic Claude API call</text>
+<line x1="1010" y1="800" x2="1045" y2="800" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ms)" stroke-dasharray="5,3"/>
+<text x="1053" y="804" font-family="Segoe UI,Arial" font-size="9" fill="#64748b">Temporal Signal (human-in-the-loop · dashed = async / optional path)</text>
+<!-- row 2 -->
+<text x="68" y="823" font-family="Segoe UI,Arial" font-size="9" fill="#1e3a5f">Stack:  Python 3.13  ·  temporalio 1.24  ·  motor 3.7  ·  pymongo 4.16  ·  voyageai 0.3.7  ·  anthropic 0.88  ·  python-dotenv 1.2  ·  Temporal CLI 1.6.2</text>
+<text x="68" y="838" font-family="Segoe UI,Arial" font-size="9" fill="#1e3a5f">Workflow ID: loan-app-28e46dd1  ·  Run: 019d53e8-6968-7069-a89b-9824a963c175  ·  Risk score: 0.22  ·  Recommendation: APPROVE  ·  Final decision: APPROVED by officer_42  ·  Duration: ~7 s</text>
+<text x="68" y="845" font-family="Segoe UI,Arial" font-size="8" fill="#0f172a">.</text>
+
+</svg>
+</body>
+</html>
